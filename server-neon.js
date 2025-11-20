@@ -107,3 +107,17 @@ app.get('/movies', async (req, res, next) => {
         next(err);
     }
 });
+
+
+// Fallback 404
+app.use((req, res) => {
+    res.status(404).json({ error: 'Rute tidak ditemukan' });
+});
+// Error handler (opsional tapi bagus ditambahkan)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Terjadi kesalahan pada server' });
+});
+app.listen(PORT, () => {
+    console.log('Server aktif di http://localhost:${PORT}');
+});
